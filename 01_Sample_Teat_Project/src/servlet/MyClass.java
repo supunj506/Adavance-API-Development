@@ -28,4 +28,16 @@ public class MyClass extends HttpServlet {
         System.out.println(address);
         System.out.println(email);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("nic");
+        String name = req.getParameter("name");
+        String address = req.getParameter("address");
+        String email = req.getParameter("email");
+        System.out.println(id);
+        System.out.println(name);
+        System.out.println(address);
+        System.out.println(email);
+    }
 }
