@@ -1,0 +1,89 @@
+<!--/*
+ * Author  : supun@mj
+ * Project : Adavnce API Development
+ * Date    : 11/20/2023 
+ * Time    : 1:31 PM
+ * For GDSE course of IJSE Institute.
+*/-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advance API Development</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #form {
+            width: 80%;
+            height: 50vh;
+            /*background: chartreuse;*/
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+
+        }
+        .inputDiv{
+            width: 60%;
+            height: 12%;
+
+        }
+
+        input{
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            border: 0 none;
+            user-focus-pointer: none;
+            font-size: 20px;
+
+        }
+        input:focus {
+            outline: none !important;
+            border-color: #B9DFFF;
+            box-shadow: 0 0 10px #B9DFFF;
+        }
+        #submitBtn{
+            background: #B9DFFF;
+            color: /*#fff*/ black;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            box-shadow: 5px 5px 5px #eee;
+            text-shadow: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>Personal Data Save Form</h1>
+
+<form action="mrservlet" id="form">
+    <div class="inputDiv">
+        <input type="text" placeholder="NIC" name="nic" >
+    </div>
+    <div class="inputDiv">
+
+        <input type="text" placeholder="Name" name="name" >
+    </div >
+    <div class="inputDiv">
+
+        <input type="text" placeholder="Address" name="address" >
+    </div>
+
+    <div class="inputDiv">
+
+        <input type="text" placeholder="Email" name="email" >
+    </div>
+
+    <div class="inputDiv">
+
+        <input id="submitBtn" type="submit" value="Save Details">
+    </div>
+</form>
+</body>
+</html>
