@@ -50,30 +50,73 @@ public class Customer extends HttpServlet {
         String name = req.getParameter("name");
         String address = req.getParameter("address");
         double salary = Double.parseDouble(req.getParameter("salary"));
+        String option = req.getParameter("option");
 
-        /*
-        try {
-        Connection connection = DBConnection.getInstance().getConnection();
-            PreparedStatement stm = connection.prepareStatement("insert into customer values (?,?,?,?)");
-            stm.setString(1,id);
-            stm.setString(2,name);
-            stm.setString(3,address);
-            stm.setDouble(4,salary);
-            int i = stm.executeUpdate();
-            if(i>0){
-                resp.getWriter().write("<h1>Successfully save Customer </h1>");
-            }*/
 
-        resp.getWriter().write("<table style='width:50%';>");
+        switch (option) {
+            case "save":
+                try {
+                    Connection connection = DBConnection.getInstance().getConnection();
+                    PreparedStatement stm = connection.prepareStatement("insert into customer values (?,?,?,?)");
+                    stm.setString(1, id);
+                    stm.setString(2, name);
+                    stm.setString(3, address);
+                    stm.setDouble(4, salary);
+                    int i = stm.executeUpdate();
+                    if (i > 0) {
+                        resp.getWriter().write("<h1>Successfully save Customer </h1>");
+                    }
+
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+
+                break;
+            case "update":
+                try {
+                    Connection connection = DBConnection.getInstance().getConnection();
+                    PreparedStatement stm = connection.prepareStatement("update customer set name=?,address=?,salary=? where id=?");
+                    stm.setString(1,name);
+                    stm.setString(2,address);
+                    stm.setDouble(3,salary);
+                    stm.setString(4,id);
+                    int i = stm.executeUpdate();
+                    if(i>0){
+                        resp.getWriter().write("<h1>Successfully Update Customer </h1>");
+                    }
+
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
+            case "delete":
+                try {
+                    Connection connection = DBConnection.getInstance().getConnection();
+                    PreparedStatement stm = connection.prepareStatement("delete from customer where id=?");
+                    stm.setString(1,id);
+                    int i = stm.executeUpdate();
+                    if(i>0){
+                        resp.getWriter().write("<h1>Successfully Delete Customer </h1>");
+                    }
+
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
+        }
+
+
+
+        /*send save customer data in table using writer------------------------------------------------------------------*/
+        /*resp.getWriter().write("<table style='width:50%';>");
         resp.getWriter().write("<thead> <tr> <th>id</th> <th>name</th> <th>address</th> <th>salary</th> </tr> </thead>");
         resp.getWriter().write("<tbody>");
         resp.getWriter().write("<tr> <td>"+id+"</td><td>"+name+"</td><td>"+address+"</td><td>"+salary+"</td> </tr>");
         resp.getWriter().write("</tbody>");
         resp.getWriter().write("</table>");
-        resp.sendRedirect("index.html");
-        /*} catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }*/
+        resp.sendRedirect("index.html");*/
     }
 
 

@@ -1,8 +1,8 @@
 <!--/*
  * Author  : supun@mj
- * Project : Adavnce API Development
+ * Project : Advance API Development
  * Date    : 11/20/2023 
- * Time    : 9:11 PM
+ * Time    : 1:31 PM
  * For GDSE course of IJSE Institute.
 */-->
 
@@ -10,15 +10,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Thogakade</title>
+    <title>Advance API Development</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #form {
+            width: 80%;
+            height: 50vh;
+            /*background: chartreuse;*/
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+
+        }
+        .inputDiv{
+            width: 60%;
+            height: 12%;
+
+        }
+
+        input{
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            border: 0 none;
+            user-focus-pointer: none;
+            font-size: 20px;
+
+        }
+        input:focus {
+            outline: none !important;
+            border-color: #B9DFFF;
+            box-shadow: 0 0 10px #B9DFFF;
+        }
+        #btnDiv{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .btn{
+            background: #B9DFFF;
+            color: /*#fff*/ black;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            box-shadow: 5px 5px 5px #eee;
+            text-shadow: none;
+            width: 20%;
+            height: 90%;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+
+
+    </style>
 </head>
 <body>
-<form action="customer" method="post">
-    <input type="text" placeholder="ID" name="id">
-    <input type="text" placeholder="Name" name="name">
-    <input type="text" placeholder="Address" name="address">
-    <input type="number" placeholder="salary" name="salary">
-    <input type="submit" value="save">
+<h1>Customer Data Manipulate Form</h1>
+
+<form  id="form" method="post">
+    <div class="inputDiv">
+        <input type="text" placeholder="Id" name="id" >
+    </div>
+    <div class="inputDiv">
+
+        <input type="text" placeholder="Name" name="name" >
+    </div >
+    <div class="inputDiv">
+
+        <input type="text" placeholder="Address" name="address" >
+    </div>
+
+    <div class="inputDiv">
+
+        <input type="text" placeholder="Salary" name="salary" >
+    </div>
+
+    <div class="inputDiv" id="btnDiv">
+
+        <button id="save" class="btn" type="submit" form="form" formaction="customer?option=save">Save</button>
+        <button id="update" class="btn" type="submit" form="form" formaction="customer?option=update">update</button>
+        <button id="delete" class="btn" type="submit" form="form" formaction="customer?option=delete">delete</button>
+    </div>
 </form>
 </body>
 </html>
