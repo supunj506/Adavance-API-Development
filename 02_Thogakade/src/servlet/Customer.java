@@ -27,22 +27,15 @@ import java.util.ArrayList;
 public class Customer extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
-        ArrayList<CustomerDTO> customerList =new ArrayList<>();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        ArrayList<CustomerDTO> customerList = new ArrayList<>();
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from customer");
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
-                customerList.add(
-                        new CustomerDTO(
-                                resultSet.getString(1),
-                                resultSet.getString(2),
-                                resultSet.getString(3),
-                                resultSet.getDouble(4)
-                        )
-                );
+                customerList.add(new CustomerDTO(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getDouble(4)));
 
             }
 
@@ -58,9 +51,9 @@ public class Customer extends HttpServlet {
         String address = req.getParameter("address");
         double salary = Double.parseDouble(req.getParameter("salary"));
 
-
+        /*
         try {
-            Connection connection = DBConnection.getInstance().getConnection();
+        Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement stm = connection.prepareStatement("insert into customer values (?,?,?,?)");
             stm.setString(1,id);
             stm.setString(2,name);
@@ -69,9 +62,19 @@ public class Customer extends HttpServlet {
             int i = stm.executeUpdate();
             if(i>0){
                 resp.getWriter().write("<h1>Successfully save Customer </h1>");
-            }
-        } catch (SQLException | ClassNotFoundException e) {
+            }*/
+
+        resp.getWriter().write("<table style='width:50%';>");
+        resp.getWriter().write("<thead> <tr> <th>id</th> <th>name</th> <th>address</th> <th>salary</th> </tr> </thead>");
+        resp.getWriter().write("<tbody>");
+        resp.getWriter().write("<tr> <td>"+id+"</td><td>"+name+"</td><td>"+address+"</td><td>"+salary+"</td> </tr>");
+        resp.getWriter().write("</tbody>");
+        resp.getWriter().write("</table>");
+        resp.sendRedirect("index.html");
+        /*} catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
+
+
 }
