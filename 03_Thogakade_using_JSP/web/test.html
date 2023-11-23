@@ -188,6 +188,7 @@
         #customerTable > tbody > tr {
             border-bottom: 2px solid green;
             height: 40px;
+
         }
 
 
@@ -284,8 +285,26 @@
     let cusAddress = $("#cusAddress");
     let cusSalary = $("#cusSalary");
 
+    let priviesRow;
+
     $("#customerTable > tbody > tr ").click(function (){
-        console.log("row Click");
+
+        if(priviesRow !== null){
+            $(priviesRow).css("background","white");
+            $(this).css("background","red");
+            priviesRow = this;
+        }else {
+            if(this.style.background === "white"){
+                $(this).css("background","red")
+                priviesRow = this;
+
+            }else {
+                $(this).css("background","white");
+            }
+        }
+
+
+
     });
 
 

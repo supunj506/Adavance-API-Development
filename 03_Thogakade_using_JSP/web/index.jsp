@@ -24,6 +24,7 @@
             height: 100vh;
             margin: 0;
             background-color: #ffffff;
+            user-select: none;
         }
 
         #headerDiv {
@@ -108,6 +109,7 @@
         .cusInputDiv {
             width: 60%;
             height: 12%;
+            user-select: none;
 
         }
 
@@ -172,6 +174,7 @@
             border-collapse: collapse;
             height: 100%;
 
+            user-select: none;
         }
 
         #customerTable > thead > tr > th {
@@ -189,6 +192,8 @@
         #customerTable > tbody > tr {
             border-bottom: 2px solid green;
             height: 40px;
+            cursor: pointer;
+            user-select: none;
         }
 
 
@@ -303,9 +308,28 @@
     let cusName = $("#cusName");
     let cusAddress = $("#cusAddress");
     let cusSalary = $("#cusSalary");
+    let previousRow;
 
     $("#customerTable > tbody > tr ").click(function (){
-        console.log("row Click");
+        if(previousRow !== null){
+            $(previousRow).css("background","white");
+            $(this).css("background","#b8e994");
+            previousRow = this;
+        }else {
+            if(this.style.background === "white"){
+                $(this).css("background","#b8e994")
+                previousRow = this;
+
+            }else {
+                $(this).css("background","white");
+            }
+        }
+
+        cusId.val($(this).children().eq("0").text());
+        cusName.val($(this).children().eq("1").text());
+        cusAddress.val($(this).children().eq("2").text());
+        cusSalary.val($(this).children().eq("3").text());
+
     });
 
 
