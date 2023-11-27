@@ -201,9 +201,10 @@
 </head>
 <body>
 <%
-    ArrayList<CustomerDTO> allCustomer = new ArrayList<>();
+    ArrayList<CustomerDTO> allCustomer = (ArrayList<CustomerDTO>) request.getAttribute("list");
 
-    try {
+
+    /*try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/thogakadeaad", "root", "1234");
         PreparedStatement stm = connection.prepareStatement("SELECT * FROM customer");
@@ -215,7 +216,7 @@
 
     } catch (ClassNotFoundException | SQLException e) {
         throw new RuntimeException(e);
-        }
+        }*/
 
 %>
 
@@ -255,14 +256,12 @@
 
                 <div class="cusInputDiv" id="cusBtnDiv">
 
-                    <button id="cusSave" class="cusBtn" type="submit" form="cusForm" formaction="customer?option=save">
-                        Save
+                    <button id="cusSave" class="cusBtn" type="submit" form="cusForm" formaction="customer"
+                            formmethod="post">Save
                     </button>
-                    <button id="cusUpdate" class="cusBtn" type="submit" form="cusForm"
-                            formaction="customer?option=update">Update
+                    <button id="cusUpdate" class="cusBtn" type="submit" form="cusForm" formaction="customer">Update
                     </button>
-                    <button id="cusDelete" class="cusBtn" type="submit" form="cusForm"
-                            formaction="customer?option=delete">Delete
+                    <button id="cusDelete" class="cusBtn" type="submit" form="cusForm" formaction="customer">Delete
                     </button>
                     <button id="clear" class="cusBtn" type="button">Clear</button>
                 </div>
@@ -280,17 +279,23 @@
                 </thead>
                 <tbody>
                 <%
-                    for(CustomerDTO customerDTO:allCustomer){
+                    if (allCustomer != null) {
+                        for (CustomerDTO customerDTO : allCustomer) {
 
                 %>
-              <tr>
-                  <td><%=customerDTO.getId()%></td>
-                  <td><%=customerDTO.getName()%></td>
-                  <td><%=customerDTO.getAddress()%></td>
-                  <td><%=customerDTO.getSalary()%></td>
-              </tr>
+                <tr>
+                    <td><%=customerDTO.getId()%>
+                    </td>
+                    <td><%=customerDTO.getName()%>
+                    </td>
+                    <td><%=customerDTO.getAddress()%>
+                    </td>
+                    <td><%=customerDTO.getSalary()%>
+                    </td>
+                </tr>
 
                 <%
+                        }
                     }
                 %>
 
@@ -310,18 +315,18 @@
     let cusSalary = $("#cusSalary");
     let previousRow;
 
-    $("#customerTable > tbody > tr ").click(function (){
-        if(previousRow !== null){
-            $(previousRow).css("background","white");
-            $(this).css("background","#b8e994");
+    $("#customerTable > tbody > tr ").on("click", function () {
+        if (previousRow !== null) {
+            $(previousRow).css("background", "white");
+            $(this).css("background", "#b8e994");
             previousRow = this;
-        }else {
-            if(this.style.background === "white"){
-                $(this).css("background","#b8e994")
+        } else {
+            if (this.style.background === "white") {
+                $(this).css("background", "#b8e994")
                 previousRow = this;
 
-            }else {
-                $(this).css("background","white");
+            } else {
+                $(this).css("background", "white");
             }
         }
 
@@ -332,8 +337,7 @@
 
     });
 
-
-    $("#clear").click(function () {
+    $("#clear").on("click", function () {
         let answer = confirm("If you Want to Clear data ???");
         if (answer) {
             cusId.val("");
@@ -341,7 +345,14 @@
             cusAddress.val("");
             cusSalary.val("");
         }
+        $(previousRow).css("background", "white");
     });
+
+    cusId.on("keypress", function () {
+        $(previousRow).css("background", "white");
+    });
+
+
 </script>
 </body>
 </html>
